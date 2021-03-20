@@ -1,5 +1,6 @@
 # Customer Role Classify and Predict
 Based on labeled text set to accomplish a multi-class problem
+![image](https://user-images.githubusercontent.com/54998666/111857711-54f9d880-896e-11eb-91c3-56c534d28fd8.png)
 
 ****
 ## 1.Preprocess
