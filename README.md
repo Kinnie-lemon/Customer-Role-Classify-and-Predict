@@ -3,21 +3,21 @@ Based on labeled text set to accomplish a multi-class problem
 
 ****
 ## 1.Preprocess
-### a)导入OEM, Pab，Distributor，SI，End-customer数据并打标签，存入Label列
+### a)导入各类Role数据并打标签，存入Label列
 ### b)Data clean
-i.经营范围
-1.分词
-2.去除停用词和标志词
-3.仅保留中文
-4.去除括号（中英文）及括号内文字
-ii.公司名称：提取行业关键词
-1.去地名、去公司末尾后分词，取最后一个词。 如xx科技有限公司，科技被提取出来
-2.如果正好是两个或三个字，就直接通过。否则，到step3
-3.如果四个及以上字，就提取最后两个字
+  - i.Business scope
+  1. split words
+  2. remove stop words and signposting language
+  3. keep Chinese characters only
+  4. remove brackets（CH&EN）and words wrapped
+  - ii.Company name：where extract industry key words from
+    1.去地名、去公司末尾后分词，取最后一个词。 如xx科技有限公司，科技被提取出来
+    2.如果正好是两个或三个字，就直接通过。否则，到step3
+    3.如果四个及以上字，就提取最后两个字
 
 ### c)TF-IDF
-#### i.目标：word2vec
-#### ii.变量表
+#### i.object：word2vec
+#### ii.variable table
 |Variables	|Description|
 |:--|:--|
 |Words_list|	unique words list for all data
@@ -29,19 +29,19 @@ ii.公司名称：提取行业关键词
 |Df_samples|	Inner joined data of full and categorical data sets,; Role categories have been encoded
 
 #### iii.模型逻辑
-1.基于所有words构造vocabulary，生成TF-IDF
-2.提取training-set涉及的words进行模型训练以提高运行速度
+1.based on all words to vocabulary for TF-IDF Model
+2.extract training-set involved words进行模型训练以提高运行速度
 ## 2.Models
 实际使用时预处理流程相同，模型部分直接调用.pkl文件进行预测，读取的数据如下：
 |Variables	|Description|
 |:--|:--|
-|name_EC| 	当前Role的Key words list
-|name_EC_excl|	当前Role的excluded Key words list
-|clf_SI|	第一层模型
-|clf_SI_stack|	第二层模型
+|name_EC| 	Key words list of current Role
+|name_EC_excl|	excluded Key words list of current Role
+|clf_SI|	Model Layer 1 
+|clf_SI_stack|	Model Layer 2
 
 ### a)Preprocess
-- i.提取公司名称关键词
+- i.extract key words form company names
 - ii.判断每个公司名称中是否包含name_EC或name_EC_excl中的关键词： 1/0
 - iii.平衡模型：从各个Roles中取50个样本，根据是否是当前讨论的Role进行二分类（正负集）
 - iv.经营范围TF-IDF array：全正负集&当前Role set
@@ -55,11 +55,11 @@ ii.公司名称：提取行业关键词
   1. Input_columns = model1_output，EC_Name_classify_output, EC_Name_exclude_classify_output
   2. K折交叉验证（K=10）
   3. rbf核SVM，惩罚参数C=5
-iii.SVM（stack模型2结果，不用交叉验证）
-1.线性核SVM，惩罚参数C=5
-a)Layer 1 ：经营范围TF-IDF
-b)Layer 2 ：Layer 1 output & EC_Name_classify_output & EC_Name_exclude_classify_output（理解为name_feature）
-c)输出：
+- iii.SVM（stack模型2结果，不用交叉验证）
+  1. 线性核SVM，惩罚参数C=5
+    - a)Layer 1 ：经营范围TF-IDF
+    - b)Layer 2 ：Layer 1 output & EC_Name_classify_output & EC_Name_exclude_classify_output（理解为name_feature）
+    - c)输出：
 |Variables	|Description|
 |:--|:--|
 |KW_incl|	是否包含当前Role的key word
