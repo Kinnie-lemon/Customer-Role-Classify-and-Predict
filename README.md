@@ -37,6 +37,7 @@ Based on labeled text set to settle a multi-class problem with TF-IDF and stacke
 2. extract training-set involved words进行模型训练以提高运行速度
 ## 2.Models
 实际使用时预处理流程相同，模型部分直接调用.pkl文件进行预测，读取的数据如下：
+
 |Variables	|Description|
 |:--|:--|
 |name_EC| 	Key words list of current Role
@@ -64,6 +65,7 @@ Based on labeled text set to settle a multi-class problem with TF-IDF and stacke
     - a)Layer 1 ：经营范围TF-IDF
     - b)Layer 2 ：Layer 1 output & EC_Name_classify_output & EC_Name_exclude_classify_output（理解为name_feature）
     - c)输出：
+    
 |Variables	|Description|
 |:--|:--|
 |KW_incl|	是否包含当前Role的key word
