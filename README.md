@@ -1,5 +1,5 @@
 # Customer Role Classify and Predict
-Based on labeled text set to accomplish a multi-class problem
+Based on labeled text set to settle a multi-class problem with TF-IDF and stacked SVM models
 
 
 
