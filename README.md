@@ -11,9 +11,9 @@ Based on labeled text set to accomplish a multi-class problem
   3. keep Chinese characters only
   4. remove brackets（CH&EN）and words wrapped
   - ii.Company name：where extract industry key words from
-    1.去地名、去公司末尾后分词，取最后一个词。 如xx科技有限公司，科技被提取出来
-    2.如果正好是两个或三个字，就直接通过。否则，到step3
-    3.如果四个及以上字，就提取最后两个字
+    1. 去地名、去公司末尾后分词，取最后一个词。 如xx科技有限公司，科技被提取出来
+    2. 如果正好是两个或三个字，就直接通过。否则，到step3
+    3. 如果四个及以上字，就提取最后两个字
 
 ### c)TF-IDF
 #### i.object：word2vec
@@ -29,8 +29,8 @@ Based on labeled text set to accomplish a multi-class problem
 |Df_samples|	Inner joined data of full and categorical data sets,; Role categories have been encoded
 
 #### iii.模型逻辑
-1.based on all words to vocabulary for TF-IDF Model
-2.extract training-set involved words进行模型训练以提高运行速度
+1. based on all words to vocabulary for TF-IDF Model
+2. extract training-set involved words进行模型训练以提高运行速度
 ## 2.Models
 实际使用时预处理流程相同，模型部分直接调用.pkl文件进行预测，读取的数据如下：
 |Variables	|Description|
@@ -85,5 +85,5 @@ Based on labeled text set to accomplish a multi-class problem
   2. 更新数据，drop ['EC_hidd', 'is_others']列
 ## 5.其他
 ### a)各分类关键词提取
-i.获取train_corpus的TF-IDF.array
-ii.多分类逻辑回归获取每个词的提取系数
+- i.获取train_corpus的TF-IDF.array
+- ii.多分类逻辑回归获取每个词的提取系数
